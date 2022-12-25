@@ -18,10 +18,12 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from app.views import AuthorModelViewSet
+from authapp.views import UserModelViewSet
 
 
 router = DefaultRouter()  # router - это сущность, которая генерит urls
 router.register('authors', AuthorModelViewSet)  # authors - это end-point
+router.register('users', UserModelViewSet)  # users - это end-point
 
 
 urlpatterns = [
