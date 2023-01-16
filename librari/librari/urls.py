@@ -15,15 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from app.views import AuthorModelViewSet
+from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet
 from authapp.views import UserModelViewSet
+from todoapp.views import ProjectModelViewSet, TODOModelViewSet
 
 
-router = DefaultRouter()  # router - это сущность, которая генерит urls
+router = DefaultRouter()  # router - это сущность, которая генерит urls. DefaultRouter создаёт точку входа
+# router = SimpleRouter()  # router - без точек входа
 router.register('authors', AuthorModelViewSet)  # authors - это end-point
+router.register('biographies', BiographyModelViewSet)
+router.register('books', BookModelViewSet)
+router.register('articles', ArticleModelViewSet)
 router.register('users', UserModelViewSet)  # users - это end-point
+router.register('project', ProjectModelViewSet)
+router.register('todo', TODOModelViewSet)
 
 
 urlpatterns = [
