@@ -19,6 +19,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet
 from authapp.views import UserModelViewSet
+from todoapp.views import ProjectModelViewSet, TODOModelViewSet
 
 
 router = DefaultRouter()  # router - это сущность, которая генерит urls. DefaultRouter создаёт точку входа
@@ -28,6 +29,8 @@ router.register('biographies', BiographyModelViewSet)
 router.register('books', BookModelViewSet)
 router.register('articles', ArticleModelViewSet)
 router.register('users', UserModelViewSet)  # users - это end-point
+router.register('project', ProjectModelViewSet)
+router.register('todo', TODOModelViewSet)
 
 
 urlpatterns = [
