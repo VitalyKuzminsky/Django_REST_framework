@@ -2,8 +2,10 @@ from rest_framework.serializers import ModelSerializer, StringRelatedField, Hype
 from .models import Author, Biography, Book, Article
 
 
-class AuthorModelSerializer(HyperlinkedModelSerializer):
-# class AuthorModelSerializer(ModelSerializer):
+# class AuthorModelSerializer(HyperlinkedModelSerializer):  # Не подходит для 3 примера на базе APIViewSet 4 урок.
+# Потому что HyperlinkedModelSerializer пытается сгенерить ссылку на просмотр одного автора, а такого функционала
+# в примере нет.
+class AuthorModelSerializer(ModelSerializer):
     class Meta:
         model = Author
         fields = '__all__'  # передавать всё

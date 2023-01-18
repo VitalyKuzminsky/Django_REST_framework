@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet
+from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet, MyAPIView
 from authapp.views import UserModelViewSet
 from todoapp.views import ProjectModelViewSet, TODOModelViewSet
 
@@ -31,10 +31,14 @@ router.register('articles', ArticleModelViewSet)
 router.register('users', UserModelViewSet)  # users - это end-point
 router.register('project', ProjectModelViewSet)
 router.register('todo', TODOModelViewSet)
+router.register('my', MyAPIView, basename='myapiview')  # демонстрация, как ViewSet интегрирован. basename -
+# внутренняя переменная для DRF, он не где не отображается
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api-auth/', include('rest_framework.urls')),  # это было в методичке, на уроке не было
+    path('api-auth/', include('rest_framework.urls')),  # это было в методичке, на уроке не было
     path('api/', include(router.urls)),
+    # path('myapi/', MyAPIView.as_view()),  # Для примеров с 1 по 2 4го урока
+    # path('myapi/', MyAPIView.as_view({'get': 'list'})),  # Для примера 3 4го урока
 ]
