@@ -3,9 +3,11 @@ import axios from 'axios'
 import logo from './logo.svg';
 import './App.css';
 import AuthorList from './components/Author.js'
-import UserList from './components/User.js'
 import BookList from './components/Books.js'
 import AuthorBookList from './components/AuthorBook.js'
+import UserList from './components/User.js'
+import ProjectList from './components/Projects.js'
+import ToDoList from './components/ToDo.js'
 import {HashRouter, BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom'
 
 const NotFound404 = ({ location }) => {
@@ -23,8 +25,10 @@ class App extends React.Component {
         super(props)
         this.state = {
             'authors': [],
+            'books': [],
             'users': [],
-            'books': []
+            'projects': [],
+            'todos': [],
         }
     }
 
@@ -38,6 +42,15 @@ class App extends React.Component {
                     }
                 )
         }).catch(error => console.log(error))
+        axios.get('http://127.0.0.1:8000/api/books/')
+            .then(response => {
+                const books = response.data
+                    this.setState(
+                    {
+                        'books': books
+                    }
+                )
+        }).catch(error => console.log(error))
         axios.get('http://127.0.0.1:8000/api/users/')
             .then(response => {
                 const users = response.data
@@ -47,12 +60,21 @@ class App extends React.Component {
                     }
                 )
         }).catch(error => console.log(error))
-        axios.get('http://127.0.0.1:8000/api/books/')
+        axios.get('http://127.0.0.1:8000/api/project/')
             .then(response => {
-                const books = response.data
+                const projects = response.data
                     this.setState(
                     {
-                        'books': books
+                        'projects': projects
+                    }
+                )
+        }).catch(error => console.log(error))
+        axios.get('http://127.0.0.1:8000/api/todo/')
+            .then(response => {
+                const todos = response.data
+                    this.setState(
+                    {
+                        'todos': todos
                     }
                 )
         }).catch(error => console.log(error))
@@ -70,8 +92,15 @@ class App extends React.Component {
                             <li>
                                 <Link to='/books'>Книги</Link>
                             </li>
+                            <br/>
                             <li>
                                 <Link to='/users'>Пользователи</Link>
+                            </li>
+                            <li>
+                                <Link to='/projects'>Проекты</Link>
+                            </li>
+                            <li>
+                                <Link to='/todos'>ToDo</Link>
                             </li>
                         </ul>
                     </nav>
@@ -80,6 +109,8 @@ class App extends React.Component {
                         <Route exact path='/' component={() => <AuthorList authors={this.state.authors} />} />
                         <Route exact path='/books' component={() => <BookList books={this.state.books} />} />
                         <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
+                        <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                        <Route exact path='/todos' component={() => <ToDoList todos={this.state.todos} />} />
                         <Route exact path='/author/:id' component={() => <AuthorBookList books={this.state.books} />} />
                         <Redirect from='/authors' to='/' />
                         <Route component={NotFound404} />
