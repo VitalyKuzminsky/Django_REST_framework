@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet, MyAPIView
+# from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet, MyAPIView
+from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet
 from authapp.views import UserModelViewSet, MyListAPIViewForLesson4, MyRetrieveAPIViewForLesson4, \
     MyUpdateAPIViewForLesson4
 from todoapp.views import ProjectModelViewSet, TODOModelViewSet
@@ -32,8 +33,8 @@ router.register('articles', ArticleModelViewSet)
 router.register('users', UserModelViewSet)  # users - это end-point
 router.register('project', ProjectModelViewSet)
 router.register('todo', TODOModelViewSet)
-router.register('my', MyAPIView, basename='myapiview')  # демонстрация, как ViewSet интегрирован. basename -
-# внутренняя переменная для DRF, он нигде не отображается
+# router.register('my', MyAPIView, basename='myapiview')  # демонстрация, как ViewSet интегрирован. basename -
+# # внутренняя переменная для DRF, он нигде не отображается
 
 
 urlpatterns = [
@@ -42,7 +43,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     # path('myapi/', MyAPIView.as_view()),  # Для примеров с 1 по 2 4го урока
     # path('myapi/', MyAPIView.as_view({'get': 'list'})),  # Для примера 3 4го урока
-    path('api/my_list_api_hw_lesson4/', MyListAPIViewForLesson4.as_view()),
-    path('api/my_retrieve_api_hw_lesson4/<pk>/', MyRetrieveAPIViewForLesson4.as_view()),
-    path('api/my_update_api_hw_lesson4/<pk>/', MyUpdateAPIViewForLesson4.as_view()),  # ДЗ к 4 уроку
+    # path('api/my_list_api_hw_lesson4/', MyListAPIViewForLesson4.as_view()),
+    # path('api/my_retrieve_api_hw_lesson4/<pk>/', MyRetrieveAPIViewForLesson4.as_view()),
+    # path('api/my_update_api_hw_lesson4/<pk>/', MyUpdateAPIViewForLesson4.as_view()),  # ДЗ к 4 уроку
 ]

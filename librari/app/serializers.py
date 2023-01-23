@@ -13,26 +13,26 @@ class AuthorModelSerializer(ModelSerializer):
         # exclude = ['id']  # передавать всё, кроме этого
 
 
-class BiographyModelSerializer(HyperlinkedModelSerializer):
-# class BiographyModelSerializer(ModelSerializer):
+# class BiographyModelSerializer(HyperlinkedModelSerializer):
+class BiographyModelSerializer(ModelSerializer):
     class Meta:
         model = Biography
         fields = '__all__'
 
 
-class BookModelSerializer(HyperlinkedModelSerializer):
-# class BookModelSerializer(ModelSerializer):
-#     author = StringRelatedField(many=True)  # Указываем в книгах сериализатор для авторов, чтобы вместо id видеть имена
-    author = AuthorModelSerializer(many=True)
+# class BookModelSerializer(HyperlinkedModelSerializer):
+class BookModelSerializer(ModelSerializer):
+    author = StringRelatedField(many=True)  # Указываем в книгах сериализатор для авторов, чтобы вместо id видеть имена
+    # author = AuthorModelSerializer(many=True)
 
     class Meta:
         model = Book
         fields = '__all__'
 
 
-class ArticleModelSerializer(HyperlinkedModelSerializer):
-# class ArticleModelSerializer(ModelSerializer):
-    author = AuthorModelSerializer()  # Указываем в книгах сериализатор для автора, чтобы вместо id видеть имя
+# class ArticleModelSerializer(HyperlinkedModelSerializer):
+class ArticleModelSerializer(ModelSerializer):
+#     author = AuthorModelSerializer()  # Указываем в книгах сериализатор для автора, чтобы вместо id видеть имя
 
     class Meta:
         model = Article
