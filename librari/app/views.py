@@ -10,9 +10,9 @@ from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 
 
-# Создам пагинатор для авторов
-class AuthorPaginator(LimitOffsetPagination):
-    default_limit = 2
+# # Создам пагинатор для авторов
+# class AuthorPaginator(LimitOffsetPagination):
+#     default_limit = 2
 
 
 class AuthorModelViewSet(ModelViewSet):
@@ -46,10 +46,10 @@ class AuthorModelViewSet(ModelViewSet):
     #         return Author.objects.filter(first_name__contains=param)
     #     return super().get_queryset()
 
-    # Фильтрация ч/з django_filters
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['first_name', 'last_name', 'birthday_year']
-    pagination_class = AuthorPaginator
+    # # Фильтрация ч/з django_filters
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['first_name', 'last_name', 'birthday_year']
+    # pagination_class = AuthorPaginator
 
 
 class BiographyModelViewSet(ModelViewSet):
@@ -104,22 +104,22 @@ class ArticleModelViewSet(ModelViewSet):
 #     serializer_class = AuthorModelSerializer
 
 
-# 3. На базе ViewSet - можно использовать модуль, можно руками. ViewSet интегрирован в экосистему Django (роутинг,
-# пагинация и т.п.).
-class MyAPIView(ViewSet):  # ViewSet является базовым классом всего рассмотреного ранее. Можно определять методы.
-
-    # Например переопределим метод list проссмотра всего
-    def list(self, request):
-        authors = Author.objects.all()
-        serializer = AuthorModelSerializer(authors, many=True)
-
-        return Response(serializer.data)
-
-    # Если нужно написать особенные условия, то использовать декоратор
-    @action(detail=False, methods=['get'])  # detail - говорит, будем работать со многими объектами или одним
-    def my_special_url(self, request):  # my_special_url - будет url'ом:
-        # http://127.0.0.1:8000/api/my/espacial_condition/
-        return Response({'data': 'Ra-ta-ta, Ra Ta-ta-ta'})
+# # 3. На базе ViewSet - можно использовать модуль, можно руками. ViewSet интегрирован в экосистему Django (роутинг,
+# # пагинация и т.п.).
+# class MyAPIView(ViewSet):  # ViewSet является базовым классом всего рассмотреного ранее. Можно определять методы.
+#
+#     # Например переопределим метод list проссмотра всего
+#     def list(self, request):
+#         authors = Author.objects.all()
+#         serializer = AuthorModelSerializer(authors, many=True)
+#
+#         return Response(serializer.data)
+#
+#     # Если нужно написать особенные условия, то использовать декоратор
+#     @action(detail=False, methods=['get'])  # detail - говорит, будем работать со многими объектами или одним
+#     def my_special_url(self, request):  # my_special_url - будет url'ом:
+#         # http://127.0.0.1:8000/api/my/espacial_condition/
+#         return Response({'data': 'Ra-ta-ta, Ra Ta-ta-ta'})
 
 
 # Фильтры.
