@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
-import django_filters.rest_framework
-import rest_framework.renderers
+# import django_filters.rest_framework
+# import rest_framework.renderers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'authapp',
     'corsheaders',
     'django_filters',
+    'rest_framework.authtoken',
     'todoapp',
 ]
 
@@ -142,7 +143,17 @@ CORS_ALLOWED_ORIGINS = [
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.AdminRenderer',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # авторизация 6 урок - IsAuthenticated - только авторизованным
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',  # читать все, редактировать авторизованные
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [  # Авторизации
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
