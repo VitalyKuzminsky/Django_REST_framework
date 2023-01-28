@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 # from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSet, ArticleModelViewSet, MyAPIView
@@ -40,6 +41,7 @@ router.register('todo', TODOModelViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),  # это было в методичке, на уроке не было
+    path('api-token-auth/', obtain_auth_token),  # для токенов
     path('api/', include(router.urls)),
     # path('myapi/', MyAPIView.as_view()),  # Для примеров с 1 по 2 4го урока
     # path('myapi/', MyAPIView.as_view({'get': 'list'})),  # Для примера 3 4го урока
