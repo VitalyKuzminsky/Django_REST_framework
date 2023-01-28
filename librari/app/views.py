@@ -59,7 +59,7 @@ class BiographyModelViewSet(ModelViewSet):
 
 
 class BookModelViewSet(ModelViewSet):
-    permission_classes = [AllowAny]   # На книги с AllowAny могут заходить все, кто угодно. Задаём разрешения
+    # permission_classes = [AllowAny]   # На книги с AllowAny могут заходить все, кто угодно. Задаём разрешения
     queryset = Book.objects.all()
     serializer_class = BookModelSerializer
 

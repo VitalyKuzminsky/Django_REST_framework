@@ -147,8 +147,8 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.AdminRenderer',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # авторизация 6 урок - IsAuthenticated - только авторизованным
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',  # читать все, редактировать авторизованные
+        # 'rest_framework.permissions.IsAuthenticated',  # авторизация - IsAuthenticated - только авторизованным
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',  # читать все, редактировать авторизованные
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [  # Авторизации
         'rest_framework.authentication.BasicAuthentication',
