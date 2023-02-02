@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView, ListAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
@@ -12,12 +12,13 @@ from rest_framework.pagination import LimitOffsetPagination
 
 
 # # Создам пагинатор для авторов
-# class AuthorPaginator(LimitOffsetPagination):
-#     default_limit = 2
+class AuthorPaginator(LimitOffsetPagination):
+    default_limit = 10
 
 
 class AuthorModelViewSet(ModelViewSet):
     queryset = Author.objects.all()  # Мы работаем с моделью Author, со всеми её записями.
+    permission_classes = [IsAuthenticated]
     serializer_class = AuthorModelSerializer  # Указываем сереализатор.
 
     # Переопределяем get_queryset для получения данных - Hardcore
@@ -49,8 +50,8 @@ class AuthorModelViewSet(ModelViewSet):
 
     # # Фильтрация ч/з django_filters
     # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['first_name', 'last_name', 'birthday_year']
-    # pagination_class = AuthorPaginator
+    filterset_fields = ['first_name', 'last_name', 'birthday_year']
+    pagination_class = AuthorPaginator
 
 
 class BiographyModelViewSet(ModelViewSet):
