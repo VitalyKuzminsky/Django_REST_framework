@@ -20,9 +20,15 @@ class BiographyModelSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class BookSerializerBase(ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'
+
+
 # class BookModelSerializer(HyperlinkedModelSerializer):
 class BookModelSerializer(ModelSerializer):
-    author = StringRelatedField(many=True)  # Указываем в книгах сериализатор для авторов, чтобы вместо id видеть имена
+    # author = StringRelatedField(many=True)  # Указываем в книгах сериализатор для авторов, чтобы вместо id видеть имена
     # author = AuthorModelSerializer(many=True)
 
     class Meta:

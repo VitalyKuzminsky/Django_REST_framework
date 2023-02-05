@@ -6,19 +6,20 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from .models import Author, Biography, Book, Article
-from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, ArticleModelSerializer
+from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, ArticleModelSerializer, \
+    BookSerializerBase
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 
 
 # # Создам пагинатор для авторов
-class AuthorPaginator(LimitOffsetPagination):
-    default_limit = 10
+# class AuthorPaginator(LimitOffsetPagination):
+#     default_limit = 10
 
 
 class AuthorModelViewSet(ModelViewSet):
     queryset = Author.objects.all()  # Мы работаем с моделью Author, со всеми её записями.
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = AuthorModelSerializer  # Указываем сереализатор.
 
     # Переопределяем get_queryset для получения данных - Hardcore
@@ -51,7 +52,7 @@ class AuthorModelViewSet(ModelViewSet):
     # # Фильтрация ч/з django_filters
     # filter_backends = [DjangoFilterBackend]
     filterset_fields = ['first_name', 'last_name', 'birthday_year']
-    pagination_class = AuthorPaginator
+    # pagination_class = AuthorPaginator
 
 
 class BiographyModelViewSet(ModelViewSet):
@@ -60,9 +61,14 @@ class BiographyModelViewSet(ModelViewSet):
 
 
 class BookModelViewSet(ModelViewSet):
-    # permission_classes = [AllowAny]   # На книги с AllowAny могут заходить все, кто угодно. Задаём разрешения
+    permission_classes = [AllowAny]   # На книги с AllowAny могут заходить все, кто угодно. Задаём разрешения
     queryset = Book.objects.all()
     serializer_class = BookModelSerializer
+
+    # def get_serializer_class(self):
+    #     if self.request.method in ['GET']:
+    #         return BookModelSerializer
+    #     return BookSerializerBase
 
 
 class ArticleModelViewSet(ModelViewSet):

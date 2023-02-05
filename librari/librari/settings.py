@@ -148,8 +148,9 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.IsAuthenticated',  # авторизация - IsAuthenticated - только авторизованным
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',  # читать все, редактировать авторизованные
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',  # читать все, редактировать авторизованные
-        'rest_framework.permissions.AllowAny',  # все всё
+        # 'rest_framework.permissions.AllowAny',  # все всё
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [  # Авторизации
         'rest_framework.authentication.BasicAuthentication',
@@ -160,6 +161,6 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 100
 }
