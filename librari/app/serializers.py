@@ -13,6 +13,12 @@ class AuthorModelSerializer(ModelSerializer):
         # exclude = ['id']  # передавать всё, кроме этого
 
 
+class AuthorModelSerializer2(ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ['first_name']  # Передавать только это для отображения версий вар. 2.
+
+
 # class BiographyModelSerializer(HyperlinkedModelSerializer):
 class BiographyModelSerializer(ModelSerializer):
     class Meta:

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from .models import Author, Biography, Book, Article
 from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, ArticleModelSerializer, \
-    BookSerializerBase
+    BookSerializerBase, AuthorModelSerializer2
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 
@@ -136,3 +136,40 @@ class ArticleModelViewSet(ModelViewSet):
 # Если его переопределить, то можно получить выборку нужных данных
 
 
+# Урок 9 Версионирование
+# Отображение версий вар.1
+# class MyAPIView(ViewSet):
+#
+#     def list(self, request, version):
+#         print(f'запрашиваемая версия: {version}')
+#         print(f'ещё одно отображение версии через request: {request.version}')
+#         authors = Author.objects.all()
+#         serializer = AuthorModelSerializer(authors, many=True)
+#
+#         return Response(serializer.data)
+#
+#     @action(detail=False, methods=['get'])
+#     def my_special_url(self, request):
+#         return Response({'data': 'Ra-ta-ta, Ra Ta-ta-ta'})
+
+
+# Отображение версий вар.2
+# class MyAPIView(ListAPIView):
+#     queryset = Author.objects.all()
+#     serializer = AuthorModelSerializer
+#
+#     def get_serializer_class(self):
+#         if self.request.version == '1':
+#             return AuthorModelSerializer
+#         return AuthorModelSerializer2
+
+
+# Отображение версий вар.3
+class MyAPIView(ListAPIView):
+    queryset = Author.objects.all()
+    serializer = AuthorModelSerializer
+
+    def get_serializer_class(self):
+        if self.request.version == '1':
+            return AuthorModelSerializer
+        return AuthorModelSerializer2
