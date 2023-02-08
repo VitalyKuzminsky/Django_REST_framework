@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.viewsets import ModelViewSet
 from .models import User
-from .serializers import UserModelSerializer
+from .serializers import UserModelSerializer, UserModelSerializer2
 
 
 class UserModelViewSet(ModelViewSet):
@@ -29,3 +29,13 @@ class MyRetrieveAPIViewForLesson4(RetrieveAPIView):
 class MyUpdateAPIViewForLesson4(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
+
+
+class MyListAPIViewForHomeworkLesson9(ListAPIView): # ДЗ к уроку 9
+    queryset = User.objects.all()
+    serializer = UserModelSerializer
+
+    def get_serializer_class(self):
+        if self.request.version == '1':
+            return UserModelSerializer
+        return UserModelSerializer2

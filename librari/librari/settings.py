@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'authapp',
     'corsheaders',
     'django_filters',
+    'drf_yasg',
+    'drf_yasg2',
     'rest_framework.authtoken',
     'todoapp',
 ]
@@ -160,6 +162,10 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',  # Отображение версий вар.1
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',  # Отображение версий вар.2
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',  # Отображение версий вар.3
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',  # Отображение версий вар.4
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 100
