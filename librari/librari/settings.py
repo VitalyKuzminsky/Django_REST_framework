@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'drf_yasg2',
+    'graphene_django',
     'rest_framework.authtoken',
     'todoapp',
 ]
@@ -169,4 +170,8 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 100
+}
+
+GRAPHENE = {
+    'SCHEMA': 'librari.schema.schema'  # где будет схема
 }

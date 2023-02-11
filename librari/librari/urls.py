@@ -24,6 +24,7 @@ from app.views import AuthorModelViewSet, BiographyModelViewSet, BookModelViewSe
 from authapp.views import UserModelViewSet, MyListAPIViewForLesson4, MyRetrieveAPIViewForLesson4, \
     MyUpdateAPIViewForLesson4, MyListAPIViewForHomeworkLesson9
 from todoapp.views import ProjectModelViewSet, TODOModelViewSet
+from graphene_django.views import GraphQLView
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -58,6 +59,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),  # это было в методичке, на уроке не было
     path('api-token-auth/', obtain_auth_token),  # для токенов
+    path('graphql/', GraphQLView.as_view(graphiql=True)),  # для GraphQL - он должен быть на отдельном адресе
     path('api/', include(router.urls)),
     # для настройки документации yasg:
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
